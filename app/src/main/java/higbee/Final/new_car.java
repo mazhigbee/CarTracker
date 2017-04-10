@@ -18,6 +18,7 @@ public class new_car extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_car);
 
+
         //load object in view
         ccMilage = (EditText)findViewById(R.id.car_milage);
         ccModel = (EditText)findViewById(R.id.car_model);
