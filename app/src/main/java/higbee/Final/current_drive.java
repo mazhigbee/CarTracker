@@ -7,7 +7,8 @@ import android.view.View;
 import android.widget.Button;
 
 public class current_drive extends AppCompatActivity {
-
+    protected static String curModel;
+    protected static int carIndex;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
