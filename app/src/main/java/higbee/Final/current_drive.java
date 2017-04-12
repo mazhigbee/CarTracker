@@ -19,7 +19,10 @@ public class current_drive extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(current_drive.this,drive_ended.class));
+
             }
         });
+
+        System.out.println("Currently using the following model: " + Car.list.get(carIndex).model + " With " + Car.list.get(carIndex).miles + " miles!");
     }
 }
