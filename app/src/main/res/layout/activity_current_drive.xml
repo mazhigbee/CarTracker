@@ -8,19 +8,19 @@
 
     <com.google.android.gms.maps.MapView
         android:id="@+id/mapDrive"
-        android:layout_width="0dp"
-        android:layout_height="246dp"
+        android:layout_width="317dp"
+        android:layout_height="168dp"
         android:layout_marginEnd="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginStart="20dp"
         android:elevation="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.101" />
+        app:layout_constraintVertical_bias="0.335" />
 
     <Button
         android:id="@+id/endDrive"
@@ -37,7 +37,7 @@
         android:id="@+id/editText2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="77dp"
         android:ems="10"
         android:inputType="textMultiLine"
         android:text="Time, Date, Speed                                                    "
@@ -45,4 +45,22 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mapDrive" />
+
+    <TextClock
+        android:id="@+id/textClock"
+        android:layout_width="93dp"
+        android:layout_height="38dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:textAlignment="center"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/mapDrive"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.518"
+        tools:layout_editor_absoluteY="29dp" />
+
 </android.support.constraint.ConstraintLayout>

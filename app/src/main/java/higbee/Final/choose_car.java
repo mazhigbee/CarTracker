@@ -12,7 +12,14 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+import java.util.Map;
 //outside resources
 //http://stackoverflow.com/questions/9596663/how-to-make-items-clickable-in-list-view
 
@@ -20,11 +27,17 @@ public class choose_car extends AppCompatActivity {
 
     private ListView lv;
     private ArrayList<String> modelList = new ArrayList<>(); //array to set the view
+    private DatabaseReference mDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_car);
+
+
+
+
 
 
 
@@ -44,11 +57,12 @@ public class choose_car extends AppCompatActivity {
 
         modelList.clear();
         //populates the array for the list view with the model names of instances of cars
-        for(Car index : Car.list){
+        for(Car index : Car.carList){
             System.out.println(index.model);
             modelList.add(index.model);
 
         }
+
 
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,modelList);

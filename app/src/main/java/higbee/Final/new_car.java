@@ -44,7 +44,7 @@ public class new_car extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //create new instance of a car
-                writeNewCar(Car.USER_ID,ccModel.getText().toString(),ccColor.getText().toString(),Integer.parseInt(ccMilage.getText().toString()));
+                Car.writeNewCar(Car.USER_ID,ccModel.getText().toString(),ccColor.getText().toString(),Integer.parseInt(ccMilage.getText().toString()));
 
                 startActivity(new Intent(new_car.this,choose_car.class));
 
@@ -53,23 +53,5 @@ public class new_car extends AppCompatActivity {
         });
     }
 
-    private void writeNewCar(String userId,String model,String color, int miles){
-        //reference the firebase instance
 
-        //key key for user
-        String key = mDatabase.child("cars").push().getKey();
-        Car car = new Car(model,miles,color);
-        //hash data into firebase format
-        Map<String, Object> carVals = car.toMap();
-
-        Map<String, Object> childUpdate = new HashMap<>();
-        childUpdate.put("/cars/" + key,carVals);
-        childUpdate.put("/user-cars/" + userId +"/" + key, carVals);
-        //push to firebase
-        mDatabase.updateChildren(childUpdate);
-
-
-
-
-    }
 }
