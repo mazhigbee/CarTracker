@@ -3,6 +3,7 @@ package higbee.Final;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,10 +25,15 @@ public class Drive {
     long startTime;
     long endTime;
     long totalTime;
+    float distanceTrav;
+
     Car carUsed;
 
+   static ArrayList<Drive> drivesLog = new ArrayList<>();
+
     //create normal object and when you are done with drive upload to firebase with WRITENEWCAR
-    public Drive(long startLat,long startLong,Car carUsed,long startTime){
+    //TODO add this stuff to firebase WHEN DRIVE IS OVER
+    public Drive(double startLat,double startLong,Car carUsed,long startTime){
         this.startLat = startLat;
         this.startLong = startLong;
         this.carUsed = carUsed;
@@ -36,9 +42,13 @@ public class Drive {
         finLat = 0;
         finLong = 0;
         totalTime = 0;
+        drivesLog.add(this);
+        distanceTrav = 0;
 
 
     }
+
+
 
 
     //    /*

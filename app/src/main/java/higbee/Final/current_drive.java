@@ -1,26 +1,20 @@
 package higbee.Final;
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.icu.text.DateFormat;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
-import android.os.Handler;
-import android.support.annotation.NonNull;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.Manifest;
-import android.widget.TextView;
-
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-
-import java.util.Date;
+import android.widget.Toast;
 
 
 
@@ -35,11 +29,14 @@ public class current_drive extends AppCompatActivity {
     protected static int carIndex;
     private LocationManager locationManager;
     private LocationListener locationListener;
-    private LocationRequest mLocationRequest;
     private long startTime;
     private long endTime;
-    private String curTime;
-    private boolean isDrive = false; //check if a object for this drive has been created already.
+    private long startLat;
+    private long startLong;
+    private boolean firstLocCheck = false; //if false this class has not set start lat/long used in condition listener
+    Drive drive;
+
+
 
 
     @Override
@@ -48,6 +45,8 @@ public class current_drive extends AppCompatActivity {
         setContentView(R.layout.activity_current_drive);
         System.out.println("Stuff has been init");
 
+        gpsRequest();
+
         //TODO create drive object here?
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -55,15 +54,21 @@ public class current_drive extends AppCompatActivity {
         startTime = System.currentTimeMillis();
 
 
-        mLocationRequest = LocationRequest.create()
-                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                .setInterval(10 * 1000)
-                .setFastestInterval(1 * 1000);
 
 
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
+                //if the location has been sampled before first location should be true
+                    //set the current lat/long to the updated location
+                //if firstLocCheck is false create a new drive with the current location
+                if(firstLocCheck == false){
+                    drive = new Drive(location.getLatitude(),location.getLongitude(),Car.carList.get(carIndex),startTime);
+                    firstLocCheck = true;
+                } else {
+                    drive.curLat = location.getLatitude();
+                    drive.curLong = location.getLongitude();
+                }
                 System.out.println("Location has changed");
                 System.out.println(location.getLatitude() + " | " + location.getLongitude());
 
@@ -83,9 +88,11 @@ public class current_drive extends AppCompatActivity {
 
             @Override
             public void onProviderDisabled(String s) {
+                Toast.makeText(getApplicationContext(),"Location services have been suspended....",Toast.LENGTH_SHORT).show();
 
             }
         };
+
 
 
         final Button btnDoneDriving = (Button) findViewById(R.id.endDrive);
@@ -93,7 +100,13 @@ public class current_drive extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 endTime = System.currentTimeMillis();
+                //these are static....
                 Drive.times = endTime - startTime;
+                //set instance final lat long to static current lat long
+                drive.finLong = drive.curLong;
+                drive.finLat = drive.curLat;
+                System.out.println("You have ended your drive at" + drive.finLat + " | " + drive.finLong);
+                Toast.makeText(getApplicationContext(),"Ending drive",Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(current_drive.this, drive_ended.class));
 
 
@@ -101,50 +114,52 @@ public class current_drive extends AppCompatActivity {
         });
 
         System.out.println("Currently using the following model: " + Car.carList.get(carIndex).model + " With " + Car.carList.get(carIndex).miles + " miles!");
-        createLocationRequest();
+
     }
 
 
 
+    private void gpsRequest(){
+        new AlertDialog.Builder(this)
+                .setTitle("Enable GPS")
+                .setMessage("Would you like to allow location tracking?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //yes
 
-    protected void createLocationRequest() {
-        LocationRequest mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(5000);
-        mLocationRequest.setFastestInterval(1000);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+                        configLoc();
+                        Toast.makeText(getApplicationContext(),"Location tracking is enabled",Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //no
+                        Toast.makeText(getApplicationContext(),"Location Tracking has been disabled",Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
+    //http://blog.teamtreehouse.com/beginners-guide-location-android
+    //
+  void configLoc(){
+      System.out.println("Configuring location");
 
-//    @Override
-//    public void onConnected(Bundle connectionHint) {
-//
-//    }
-////
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-//                                           @NonNull int[] grantResults) {
-//        switch (requestCode) {
-//            case 10:
-//                configLoc();
-//                break;
-//            default:
-//                break;
-//        }
-//    }
-//  void configLoc(){
-//
-//      // first check for permissions
-//      if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
-//              PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
-//              Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//              requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
-//                              Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.INTERNET}
-//                      , 10);
-//          }
-//          return;
-//      }
-//    locationManager.requestLocationUpdates("gps",5000,0,locationListener);
-//  }
+      // first check for permissions
+      if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
+              PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
+              Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+              requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
+                              Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.INTERNET}
+                      , 10);
+          }
+          return;
+      }
+    locationManager.requestLocationUpdates("gps",5000,0,locationListener);
+  }
 
 
 }

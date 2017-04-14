@@ -13,4 +13,5 @@
     <string name="end_drive">End Drive</string>
     <string name="current_drive">Current Drive</string>
     <string name="done">Done</string>
+    <string name="refresh_gps">Enable GPS</string>
 </resources>
