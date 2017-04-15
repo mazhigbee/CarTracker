@@ -1,17 +1,10 @@
 package higbee.Final;
 
-import android.*;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.Build;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.Manifest;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,6 +38,7 @@ public class StartDrive extends AppCompatActivity {
         past_drives_button.setOnClickListener(new View.OnClickListener(){
            @Override
             public void onClick(View v){
+
                Intent choosePastDrives = new Intent(StartDrive.this,past_drives.class);
                startActivity(choosePastDrives);
            }
@@ -55,7 +49,8 @@ public class StartDrive extends AppCompatActivity {
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Car.readCar((Map<String,Object>)dataSnapshot.getValue());
+              // Drive.readDrives((Map<String,Object>)dataSnapshot.child("drives").getValue());
+                Car.readCar((Map<String,Object>)dataSnapshot.child("cars").getValue());
             }
 
             @Override

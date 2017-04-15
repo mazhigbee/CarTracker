@@ -48,7 +48,7 @@ public class Car {
         Map<String, Object> carVals = car.toMap();
 
         Map<String, Object> childUpdate = new HashMap<>();
-        childUpdate.put("/"+car.model+"/",carVals);
+        childUpdate.put("/cars/" + "/"+car.model+"/",carVals);
         //childUpdate.put("/user-cars/" + userId +"/" + key, carVals);
         //push to firebase
         mDatabase.updateChildren(childUpdate);
@@ -82,6 +82,13 @@ public class Car {
         }
 
     }
+public static void updateMiles(Car car){
+    mDatabase = FirebaseDatabase.getInstance().getReference();
+   Map<String, Object> carVals = car.toMap();
+    Map<String,Object> childUpdate = new HashMap<>();
+    childUpdate.put("/cars/"+ "/" + car.model +"/",carVals);
 
+    mDatabase.updateChildren(childUpdate);
+}
 
 }

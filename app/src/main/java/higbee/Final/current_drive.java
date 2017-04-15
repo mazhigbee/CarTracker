@@ -63,7 +63,7 @@ public class current_drive extends AppCompatActivity {
                     //set the current lat/long to the updated location
                 //if firstLocCheck is false create a new drive with the current location
                 if(firstLocCheck == false){
-                    drive = new Drive(location.getLatitude(),location.getLongitude(),Car.carList.get(carIndex),startTime);
+                    drive = new Drive(location.getLatitude(),location.getLongitude(),Car.carList.get(Car.carList.size() - 1),startTime);
                     firstLocCheck = true;
                 } else {
                     drive.curLat = location.getLatitude();
@@ -99,9 +99,9 @@ public class current_drive extends AppCompatActivity {
         btnDoneDriving.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                endTime = System.currentTimeMillis();
+                drive.endTime = System.currentTimeMillis();
                 //these are static....
-                Drive.times = endTime - startTime;
+                drive.totalTime = drive.endTime - drive.startTime;
                 //set instance final lat long to static current lat long
                 drive.finLong = drive.curLong;
                 drive.finLat = drive.curLat;

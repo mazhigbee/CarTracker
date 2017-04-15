@@ -12,9 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -45,14 +43,11 @@ public class drive_ended extends AppCompatActivity {
 
 
 
-        setGUIFromValues(lastDrive,startLoc,endLoc,driveDist);
+        setGUIFromValues(lastDrive,startLoc,endLoc,driveDist,timeDrive);
 
 
         //format millis to time in mm:ss
-        Date date = new Date(Drive.times);
-        DateFormat formatter = new SimpleDateFormat("mm:ss");
-        String formattedTime = formatter.format(date);
-        timeDrive.setText("Your Drive Took: " + formattedTime);
+
 
         //set start locaiton as a city
 
@@ -63,36 +58,57 @@ public class drive_ended extends AppCompatActivity {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Drive.writeNewDrive(lastDrive);
+                //TODO UPDATE CAR MILES
+                Car.updateMiles(lastDrive.carUsed);
+
                 startActivity(new Intent(drive_ended.this,StartDrive.class));
             }
         });
     }
 
-    private void setGUIFromValues(Drive drive,TextView startLoc,TextView endLoc,TextView driveDist){
+    private void setGUIFromValues(Drive drive,TextView startLoc,TextView endLoc,TextView driveDist,TextView timeDrive){
         //new geocoder for town names
         Geocoder mGeocoder = new Geocoder(this, Locale.getDefault());
 
+        Date date = new Date(drive.totalTime);
+//        DateFormat formatter = new SimpleDateFormat("mm:ss");
+//        String formattedTime = formatter.format(date);
+        int hours = (int) ((drive.totalTime / (1000*60*60)) % 24);
+        int mins = (int) ((drive.totalTime / (1000*60)) % 60);
+        timeDrive.setText("Your Drive Took " + Integer.toString(hours) + " Hours and " + Integer.toString(mins) + "Minutes");
+        drive.totalTime = drive.times;
 
         //start with start location
         try {
-            List<Address> geoCodeList = mGeocoder.getFromLocation(lastDrive.startLat,lastDrive.startLong,8);
-            startLocation = "Drive started in:\n" + "City: " + geoCodeList.get(0).getAddressLine(0) + geoCodeList.get(0).getAddressLine(1);
+            List<Address> geoCodeList = mGeocoder.getFromLocation(lastDrive.startLat,lastDrive.startLong,2);
+            if(geoCodeList.size() != 0){
+                startLocation = "Drive started at:\n" + geoCodeList.get(0).getAddressLine(0) ;   //+ geoCodeList.get(0).getAddressLine(1)
+                startLoc.setText(startLocation);
+
+            } else {
+                startLoc.setText("ERROR fetching location");
+                Toast.makeText(this,"Geo lookup failed",Toast.LENGTH_SHORT);
+            }
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(this,"Unable to fetch start location for lookup",Toast.LENGTH_SHORT);
-        } catch(IndexOutOfBoundsException e){
-            Toast.makeText(this,"no info for this location is avalible",Toast.LENGTH_SHORT);
         }
-        startLoc.setText(startLocation);
         //end location town and city
         try {
-            List<Address> geoCodeList = mGeocoder.getFromLocation(lastDrive.finLat,lastDrive.finLong,10);
-            endLocation = "Ended in\n" + " City: " + geoCodeList.get(0).getAddressLine(0) + geoCodeList.get(0).getAddressLine(1);
+            List<Address> geoCodeList = mGeocoder.getFromLocation(lastDrive.finLat,lastDrive.finLong,2);
+            if(geoCodeList.size() != 0){
+                endLocation = "Ended at: \n" + geoCodeList.get(0).getAddressLine(0);   //+ geoCodeList.get(0).getAddressLine(1)
+                endLoc.setText(endLocation);
+            } else {
+                startLoc.setText("ERROR fetching location");
+                Toast.makeText(this,"Geo lookup failed",Toast.LENGTH_SHORT);
+            }
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(this,"Unable to fetch start location for lookup",Toast.LENGTH_SHORT);
         }
-        endLoc.setText(endLocation);
+
 
         //distance between
         Location start = new Location("");
@@ -111,8 +127,9 @@ public class drive_ended extends AppCompatActivity {
 
         DecimalFormat df = new DecimalFormat("#.##");
 
-        driveDist.setText(String.valueOf(df.format(tmpDistance)));
-        drive.carUsed.miles +=  distanceTravled;
+        driveDist.setText("Miles Travled:\n" + String.valueOf(df.format(tmpDistance)));
+        drive.carUsed.miles +=  tmpDistance;
+        drive.distanceTrav =  (float) tmpDistance;
 
 
 

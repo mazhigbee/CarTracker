@@ -48,6 +48,18 @@ public class Drive {
 
     }
 
+    private Drive(Double startLat,Double startLong,Double finLat,Double finLong,long startTime,long endTime, long totalTime,float distanceTrav,Car carUsed){
+        this.startLat = startLat;
+        this.startLong = startLong;
+        this.finLat = finLat;
+        this.finLong = finLong;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.totalTime = totalTime;
+        this.distanceTrav = distanceTrav;
+        this.carUsed = carUsed;
+    }
+
 
 
 
@@ -55,17 +67,17 @@ public class Drive {
 //    https://firebase.google.com/docs/database/android/read-and-write
 //     */
     //ONLY CALL THIS ONCE A DRIVE IS COMPLETED WITH THE OBJECT
-    protected static void writeNewCar(Drive drive){
+    protected static void writeNewDrive(Drive drive){
         //reference the firebase instance
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         //key key for user
         String key = mDatabase.child("drives").push().getKey();
-        Drive driveTmp = new Drive((long)drive.startLat,(long)drive.startLong,drive.carUsed,drive.startTime);
+//        Drive driveTmp = new Drive((long)drive.startLat,(long)drive.startLong,drive.carUsed,drive.startTime);
         //hash data into firebase format
         Map<String, Object> driveVals = drive.toMap();
 
         Map<String, Object> childUpdate = new HashMap<>();
-        childUpdate.put("/"+drive.startTime+"/",driveVals);
+        childUpdate.put("/drives/" + "/"+drive.startTime+"/",driveVals);
         //childUpdate.put("/user-cars/" + userId +"/" + key, carVals);
         //push to firebase
         mDatabase.updateChildren(childUpdate);
@@ -85,12 +97,39 @@ public class Drive {
         result.put("finLat",finLat);
         result.put("finLong",finLong);
         result.put("totalTime",totalTime);
+        result.put("distanceTrav", distanceTrav);
 
 
 
         return result;
     }
 
+
+    public static void readDrives(Map<String,Object> drives){
+
+        drivesLog.clear();
+
+        for(Map.Entry<String, Object> entry : drives.entrySet()){
+            Map singleDrive = (Map) entry.getValue();
+            double tmpStartLat = (Double) singleDrive.get("startLat");
+            double tmpStartLong = (Double) singleDrive.get("startLong");
+            double tmpFinLat = (Double) singleDrive.get("finLat");
+            double tmpFinLong = (Double) singleDrive.get("finLong");
+            long tmpStartTime = (Long) singleDrive.get("startTime");
+            long tmpEndTime = (Long) singleDrive.get("endTime");
+            long tmpTotalTime = (Long) singleDrive.get("totalTime");
+            long tmpDistTrav = (long) singleDrive.get("distanceTrav");
+            Car tmpCar = (Car) singleDrive.get("carUsed");
+
+            float realDistTrav  = (float)  tmpDistTrav;
+            drivesLog.add(new Drive(tmpStartLat,tmpStartLong,tmpFinLat,tmpFinLong,tmpStartTime,tmpEndTime,tmpTotalTime,realDistTrav,tmpCar));
+
+
+//
+        }
+
+
+    }
 
 
 }
