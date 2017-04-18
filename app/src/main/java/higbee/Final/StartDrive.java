@@ -49,7 +49,7 @@ public class StartDrive extends AppCompatActivity {
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-              // Drive.readDrives((Map<String,Object>)dataSnapshot.child("drives").getValue());
+                Drive.readDrives((Map<String,Object>)dataSnapshot.child("drives").getValue());
                 Car.readCar((Map<String,Object>)dataSnapshot.child("cars").getValue());
             }
 

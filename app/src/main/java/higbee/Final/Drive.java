@@ -25,7 +25,7 @@ public class Drive {
     long startTime;
     long endTime;
     long totalTime;
-    float distanceTrav;
+    double distanceTrav;
 
     Car carUsed;
 
@@ -48,7 +48,7 @@ public class Drive {
 
     }
 
-    private Drive(Double startLat,Double startLong,Double finLat,Double finLong,long startTime,long endTime, long totalTime,float distanceTrav,Car carUsed){
+    private Drive(Double startLat,Double startLong,Double finLat,Double finLong,long startTime,long endTime, long totalTime,double distanceTrav){
         this.startLat = startLat;
         this.startLong = startLong;
         this.finLat = finLat;
@@ -118,11 +118,12 @@ public class Drive {
             long tmpStartTime = (Long) singleDrive.get("startTime");
             long tmpEndTime = (Long) singleDrive.get("endTime");
             long tmpTotalTime = (Long) singleDrive.get("totalTime");
-            long tmpDistTrav = (long) singleDrive.get("distanceTrav");
-            Car tmpCar = (Car) singleDrive.get("carUsed");
+            double tmpDistTrav = (Double) singleDrive.get("distanceTrav");
 
-            float realDistTrav  = (float)  tmpDistTrav;
-            drivesLog.add(new Drive(tmpStartLat,tmpStartLong,tmpFinLat,tmpFinLong,tmpStartTime,tmpEndTime,tmpTotalTime,realDistTrav,tmpCar));
+            //Car tmpCar = (Car) singleDrive.get("carUsed");
+
+            double realDistTrav  = (double)  tmpDistTrav;
+            drivesLog.add(new Drive(tmpStartLat,tmpStartLong,tmpFinLat,tmpFinLong,tmpStartTime,tmpEndTime,tmpTotalTime,realDistTrav));
 
 
 //

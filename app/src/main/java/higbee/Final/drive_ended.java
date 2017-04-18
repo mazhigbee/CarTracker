@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -58,6 +57,7 @@ public class drive_ended extends AppCompatActivity {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Drive.writeNewDrive(lastDrive);
                 //TODO UPDATE CAR MILES
                 Car.updateMiles(lastDrive.carUsed);
@@ -71,13 +71,13 @@ public class drive_ended extends AppCompatActivity {
         //new geocoder for town names
         Geocoder mGeocoder = new Geocoder(this, Locale.getDefault());
 
-        Date date = new Date(drive.totalTime);
+       // Date date = new Date(drive.totalTime);
 //        DateFormat formatter = new SimpleDateFormat("mm:ss");
 //        String formattedTime = formatter.format(date);
         int hours = (int) ((drive.totalTime / (1000*60*60)) % 24);
         int mins = (int) ((drive.totalTime / (1000*60)) % 60);
         timeDrive.setText("Your Drive Took " + Integer.toString(hours) + " Hours and " + Integer.toString(mins) + "Minutes");
-        drive.totalTime = drive.times;
+        //drive.totalTime = drive.times;
 
         //start with start location
         try {
@@ -129,7 +129,7 @@ public class drive_ended extends AppCompatActivity {
 
         driveDist.setText("Miles Travled:\n" + String.valueOf(df.format(tmpDistance)));
         drive.carUsed.miles +=  tmpDistance;
-        drive.distanceTrav =  (float) tmpDistance;
+        drive.distanceTrav =  (double) tmpDistance;
 
 
 
