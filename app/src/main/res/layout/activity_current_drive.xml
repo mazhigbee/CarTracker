@@ -8,57 +8,40 @@
 
     <com.google.android.gms.maps.MapView
         android:id="@+id/mapDrive"
-        android:layout_width="317dp"
-        android:layout_height="168dp"
+        android:layout_width="325dp"
+        android:layout_height="276dp"
         android:layout_marginEnd="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginStart="20dp"
         android:elevation="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.335" />
+        app:layout_constraintVertical_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.4" />
 
     <Button
         android:id="@+id/endDrive"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="164dp"
         android:text="@string/end_drive"
         app:layout_constraintHorizontal_bias="0.94"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mapDrive" />
-
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="77dp"
-        android:ems="10"
-        android:inputType="textMultiLine"
-        android:text="Time, Date, Speed                                                    "
-        app:layout_constraintHorizontal_bias="0.111"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mapDrive" />
+        tools:layout_editor_absoluteY="427dp" />
 
     <TextClock
         android:id="@+id/textClock"
         android:layout_width="264dp"
         android:layout_height="76dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="29dp"
         android:textAlignment="center"
         android:textSize="36sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/mapDrive"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.826" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

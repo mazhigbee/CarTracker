@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -50,7 +50,7 @@ public class choose_car extends AppCompatActivity {
 
 
         //button lisenters
-        final Button newCar = (Button) findViewById(R.id.newCar);
+        final ImageButton newCar = (ImageButton) findViewById(R.id.newCarBtn);
         newCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
