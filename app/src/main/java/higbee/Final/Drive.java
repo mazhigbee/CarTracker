@@ -1,10 +1,20 @@
 package higbee.Final;
 
+import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.widget.Toast;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -129,6 +139,77 @@ public class Drive {
 //
         }
 
+
+    }
+
+
+    //returns distance between 2 points as string for gui
+    public static String distAsString(double startLat,double startLong,double finLat,double finLong){
+
+        Location start = new Location("");
+        start.setLatitude(startLat);
+        start.setLongitude(startLong);
+
+        Location end = new Location("");
+        end.setLatitude(finLat);
+        end.setLongitude(finLong);
+
+        float distanceTravled = start.distanceTo(end);//distance is in meters...
+
+
+
+        double   tmpDistance = distanceTravled * 0.000621371192;//convert to miles
+
+        DecimalFormat df = new DecimalFormat("#.##");//trim float
+        String driveDist = ("Miles Travled: " + String.valueOf(df.format(tmpDistance)));
+
+        return driveDist;
+    }
+    //returns start address as string
+    public static String startAddAsString(Context context,double startLat,double startLong){
+        Geocoder mGeocoder = new Geocoder(context, Locale.getDefault());
+        String startLocation = "Proper Data Not Found!";
+        try {
+            List<Address> geoCodeList = mGeocoder.getFromLocation(startLat,startLong,2);
+            if(geoCodeList.size() != 0){
+                startLocation = "Drive started at: " + geoCodeList.get(0).getAddressLine(0) ;   //+ geoCodeList.get(0).getAddressLine(1)
+
+
+            } else {
+
+                Toast.makeText(context,"Geo lookup failed",Toast.LENGTH_SHORT);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(context,"Unable to fetch start location for lookup",Toast.LENGTH_SHORT);
+        }
+        return startLocation;
+    }
+
+    public static String endAddAsString(Context context,double finLat,double finLong){
+        Geocoder mGeocoder = new Geocoder(context,Locale.getDefault());
+        //end location town and city
+        String endLocation = "Proper end location not found";
+        try {
+            List<Address> geoCodeList = mGeocoder.getFromLocation(finLat,finLong,2);
+            if(geoCodeList.size() != 0){
+                endLocation = "Ended at: " + geoCodeList.get(0).getAddressLine(0);   //+ geoCodeList.get(0).getAddressLine(1)
+
+            } else {
+
+                Toast.makeText(context,"Geo lookup failed",Toast.LENGTH_SHORT);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(context,"Unable to fetch start location for lookup",Toast.LENGTH_SHORT);
+        }
+        return endLocation;
+    }
+    public static String driveTimeAsString(long totalTime){
+        int hours = (int) ((totalTime / (1000*60*60))  );
+        int mins = (int) ((totalTime / (1000*60)) );
+        String driveTime = ("Your Drive Took " + Integer.toString(hours) + " Hours and " + Integer.toString(mins) + " Minutes");
+        return driveTime;
 
     }
 

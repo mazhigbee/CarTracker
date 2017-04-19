@@ -51,6 +51,7 @@ public class Car {
         childUpdate.put("/cars/" + "/"+car.model+"/",carVals);
         //childUpdate.put("/user-cars/" + userId +"/" + key, carVals);
         //push to firebase
+        Car.carList.add(car);
         mDatabase.updateChildren(childUpdate);
 
 

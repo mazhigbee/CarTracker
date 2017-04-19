@@ -74,9 +74,11 @@ public class drive_ended extends AppCompatActivity {
        // Date date = new Date(drive.totalTime);
 //        DateFormat formatter = new SimpleDateFormat("mm:ss");
 //        String formattedTime = formatter.format(date);
-        int hours = (int) ((drive.totalTime / (1000*60*60)) % 24);
-        int mins = (int) ((drive.totalTime / (1000*60)) % 60);
-        timeDrive.setText("Your Drive Took " + Integer.toString(hours) + " Hours and " + Integer.toString(mins) + "Minutes");
+//        int hours = (int) ((drive.totalTime / (1000*60*60)) % 24);
+//        int mins = (int) ((drive.totalTime / (1000*60)) % 60);
+//        timeDrive.setText("Your Drive Took " + Integer.toString(hours) + " Hours and " + Integer.toString(mins) + "Minutes");
+
+        timeDrive.setText(Drive.driveTimeAsString(drive.totalTime));
         //drive.totalTime = drive.times;
 
         //start with start location

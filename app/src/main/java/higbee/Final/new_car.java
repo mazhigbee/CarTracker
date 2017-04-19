@@ -1,16 +1,18 @@
 package higbee.Final;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class new_car extends AppCompatActivity {
@@ -45,6 +47,23 @@ public class new_car extends AppCompatActivity {
             public void onClick(View v) {
                 //create new instance of a car
                 Car.writeNewCar(Car.USER_ID,ccModel.getText().toString(),ccColor.getText().toString(),Integer.parseInt(ccMilage.getText().toString()));
+
+
+
+                mDatabase = FirebaseDatabase.getInstance().getReference();
+
+                mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Car.readCar((Map<String,Object>)dataSnapshot.child("cars").getValue());
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
 
                 startActivity(new Intent(new_car.this,choose_car.class));
 
