@@ -30,7 +30,9 @@
         <activity
             android:name=".current_drive"
             android:label="@string/current_drive" />
-        <activity android:name=".drive_ended"></activity>
+        <activity
+            android:name=".drive_ended"
+            android:label="@string/drive_ended" />
     </application>
 
 </manifest>

@@ -48,19 +48,17 @@
 
     <TextClock
         android:id="@+id/textClock"
-        android:layout_width="93dp"
-        android:layout_height="38dp"
+        android:layout_width="264dp"
+        android:layout_height="76dp"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:textAlignment="center"
         android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/mapDrive"
-        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.518"
-        tools:layout_editor_absoluteY="29dp" />
+        app:layout_constraintVertical_bias="0.826" />
 
 </android.support.constraint.ConstraintLayout>
