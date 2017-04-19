@@ -23,14 +23,15 @@ public class past_drives extends AppCompatActivity {
     ArrayList<ArrayList> driveComp;
     List<String> listDataHeader;
     HashMap<String,List<String>> listDataChild;
-//    private boolean hasBeenLoaded = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_past_drives);
         drivesList = (ExpandableListView) findViewById(R.id.expandablePastDrives);
-
-        if(listDataChild == null && listDataHeader == null) {
+        //in attempt to limit thread this should only run if the list has not been populated
+        //TODO but if you want to view drive you just did not great....
+        if (listDataChild == null && listDataHeader == null) {
             driveComp = new ArrayList<>();
 
 
@@ -42,16 +43,24 @@ public class past_drives extends AppCompatActivity {
         drivesList.setAdapter(listAdapter);
 
 
-
-
         final Button cancelBtn = (Button) findViewById(R.id.btnCancel);
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(past_drives.this,StartDrive.class));
+                startActivity(new Intent(past_drives.this, StartDrive.class));
             }
         });
     }
+
+
+    /*
+     * this functions populates the data objects to fill a expandable list view
+     * List header data is the headers and filled with date info
+     * using a map of arrays for the children and the data from each drive
+     * all fetched from the data in the driveLog
+     * driveLog is populated from firebase
+     * TODO THIS FUNCTION IS NOTABLY POWER HUNGRY POSSIBLE NEW THREAD SHOULD BE CONSIDERED
+     */
 
     private void setupList() {
         //TODO
@@ -83,7 +92,7 @@ public class past_drives extends AppCompatActivity {
 
 
         }
-        //hasBeenLoaded = true;
+
 
     }
 }

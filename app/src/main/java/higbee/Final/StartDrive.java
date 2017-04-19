@@ -22,6 +22,7 @@ public class StartDrive extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_drive);
+        //reference for firebase
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         //add button listeners
@@ -43,9 +44,9 @@ public class StartDrive extends AppCompatActivity {
                startActivity(choosePastDrives);
            }
         });
-        //TODo
-//        implement firebase read!
-        //read cars from database
+        //event listener for a single value change
+        //this calls the functions to start retrieving info from firebase
+        //takes a snapshot of data at specified child
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

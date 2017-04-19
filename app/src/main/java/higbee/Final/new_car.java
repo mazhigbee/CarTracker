@@ -26,13 +26,14 @@ public class new_car extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_car);
+        //firebase reference
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         //load object in view
         ccMilage = (EditText)findViewById(R.id.car_milage);
         ccModel = (EditText)findViewById(R.id.car_model);
         ccColor = (EditText)findViewById(R.id.car_color);
-
+        //buttons listeners
         final Button cancel = (Button) findViewById(R.id.btnCancel);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,7 +51,8 @@ public class new_car extends AppCompatActivity {
 
 
 
-                mDatabase = FirebaseDatabase.getInstance().getReference();
+                //prompts the database to call an event listener on cars if they have been updated
+                //New one is added in this class anyway
 
                 mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override

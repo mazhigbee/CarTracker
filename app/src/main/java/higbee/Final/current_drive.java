@@ -47,10 +47,11 @@ public class current_drive extends AppCompatActivity {
 
         gpsRequest();
 
-        //TODO create drive object here?
+        //TODO make this useful?
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
+        //fetch system time for drive start (utc epoch)
         startTime = System.currentTimeMillis();
 
 
@@ -66,8 +67,8 @@ public class current_drive extends AppCompatActivity {
                     drive = new Drive(location.getLatitude(),location.getLongitude(),Car.carList.get(carIndex),startTime);
                     firstLocCheck = true;
                 } else {
-                    drive.curLat = location.getLatitude();
-                    drive.curLong = location.getLongitude();
+                    Drive.curLat = location.getLatitude();
+                    Drive.curLong = location.getLongitude();
                 }
                 System.out.println("Location has changed");
                 System.out.println(location.getLatitude() + " | " + location.getLongitude());
@@ -99,12 +100,13 @@ public class current_drive extends AppCompatActivity {
         btnDoneDriving.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //end time from utc
                 drive.endTime = System.currentTimeMillis();
                 //these are static....
                 drive.totalTime = drive.endTime - drive.startTime;
                 //set instance final lat long to static current lat long
-                drive.finLong = drive.curLong;
-                drive.finLat = drive.curLat;
+                drive.finLong = Drive.curLong;
+                drive.finLat = Drive.curLat;
                 System.out.println("You have ended your drive at" + drive.finLat + " | " + drive.finLong);
                 Toast.makeText(getApplicationContext(),"Ending drive",Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(current_drive.this, drive_ended.class));
@@ -119,6 +121,14 @@ public class current_drive extends AppCompatActivity {
 
 
 
+
+    //LOCATION INFO ADAPTED FROM   //http://blog.teamtreehouse.com/beginners-guide-location-android
+
+
+/*
+ *This functions propmts user to allow for gps
+ * THIS IS NEED TO START THE REQUEST IN CONFIGLOC()
+ */
     private void gpsRequest(){
         new AlertDialog.Builder(this)
                 .setTitle("Enable GPS")
@@ -142,9 +152,14 @@ public class current_drive extends AppCompatActivity {
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
     }
-    //http://blog.teamtreehouse.com/beginners-guide-location-android
-    //
-  void configLoc(){
+
+  /*
+   * Checks the manifest to make sure the user has okay'd the use of gps
+   * if not the user will be prompted to make that change
+   * then the location manager will fire the request location updates
+   * without the call to request location updates location will not be updated
+   */
+  private void configLoc(){
       System.out.println("Configuring location");
 
       // first check for permissions

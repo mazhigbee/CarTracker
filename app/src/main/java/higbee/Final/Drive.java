@@ -42,7 +42,7 @@ public class Drive {
    static ArrayList<Drive> drivesLog = new ArrayList<>();
 
     //create normal object and when you are done with drive upload to firebase with WRITENEWCAR
-    //TODO add this stuff to firebase WHEN DRIVE IS OVER
+
     public Drive(double startLat,double startLong,Car carUsed,long startTime){
         this.startLat = startLat;
         this.startLong = startLong;
@@ -57,7 +57,7 @@ public class Drive {
 
 
     }
-
+    //this is the constructor for drives that have already happened and are being read back from fire base.
     private Drive(Double startLat,Double startLong,Double finLat,Double finLong,long startTime,long endTime, long totalTime,double distanceTrav){
         this.startLat = startLat;
         this.startLong = startLong;
@@ -77,10 +77,11 @@ public class Drive {
 //    https://firebase.google.com/docs/database/android/read-and-write
 //     */
     //ONLY CALL THIS ONCE A DRIVE IS COMPLETED WITH THE OBJECT
+    //creates the in nessacary to push to firebase
     protected static void writeNewDrive(Drive drive){
         //reference the firebase instance
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        //key key for user
+
         String key = mDatabase.child("drives").push().getKey();
 //        Drive driveTmp = new Drive((long)drive.startLat,(long)drive.startLong,drive.carUsed,drive.startTime);
         //hash data into firebase format
@@ -96,7 +97,9 @@ public class Drive {
 
 
     }
-
+/*
+*this function maps all the params of a drive and is called form writeNewDrive
+ */
     private Map<String,Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("startLat",startLat);
@@ -114,7 +117,12 @@ public class Drive {
         return result;
     }
 
-
+    /*
+    *read the dive info from firebase back into the application
+    * takes a data snap shot of the child "drives" and sorts through each
+    * extracting the nessasary info to create drive object
+    * todo figure out nested car object
+     */
     public static void readDrives(Map<String,Object> drives){
 
         drivesLog.clear();
@@ -132,18 +140,20 @@ public class Drive {
 
             //Car tmpCar = (Car) singleDrive.get("carUsed");
 
-            double realDistTrav  = (double)  tmpDistTrav;
+            double realDistTrav  = tmpDistTrav;
+            //add the new drive object to drive log for use
             drivesLog.add(new Drive(tmpStartLat,tmpStartLong,tmpFinLat,tmpFinLong,tmpStartTime,tmpEndTime,tmpTotalTime,realDistTrav));
 
-
-//
         }
 
 
     }
 
 
-    //returns distance between 2 points as string for gui
+
+    /*
+    *returns distance between 2 points as string for gui
+     */
     public static String distAsString(double startLat,double startLong,double finLat,double finLong){
 
         Location start = new Location("");
@@ -165,7 +175,11 @@ public class Drive {
 
         return driveDist;
     }
-    //returns start address as string
+
+
+    /*
+    *returns a string of your start locaiton from geocoder
+     */
     public static String startAddAsString(Context context,double startLat,double startLong){
         Geocoder mGeocoder = new Geocoder(context, Locale.getDefault());
         String startLocation = "Proper Data Not Found!";
@@ -186,6 +200,9 @@ public class Drive {
         return startLocation;
     }
 
+      /*
+      * returns string of end location from geocoder
+       */
     public static String endAddAsString(Context context,double finLat,double finLong){
         Geocoder mGeocoder = new Geocoder(context,Locale.getDefault());
         //end location town and city
@@ -205,6 +222,9 @@ public class Drive {
         }
         return endLocation;
     }
+    /*
+     * converts drive time from millis to a string
+     */
     public static String driveTimeAsString(long totalTime){
         int hours = (int) ((totalTime / (1000*60*60))  );
         int mins = (int) ((totalTime / (1000*60)) );
@@ -212,6 +232,10 @@ public class Drive {
         return driveTime;
 
     }
+//todo implement this maybe?
+//    public static String estimatedDriveTime(){
+//
+//    }
 
 
 }

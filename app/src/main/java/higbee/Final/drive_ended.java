@@ -37,7 +37,7 @@ public class drive_ended extends AppCompatActivity {
         TextView driveDist = (TextView) findViewById(R.id.distTraveled);
         //fetch last instance added to the list of drives
         lastDrive = Drive.drivesLog.get(Drive.drivesLog.size()-1);
-        //test fetch of last drive?
+        //for debug of that fetch
         System.out.println("You are using the following drive and car" + lastDrive.carUsed.model + "Start location = " + lastDrive.startLat + " | " + lastDrive.startLong);
 
 
@@ -45,14 +45,10 @@ public class drive_ended extends AppCompatActivity {
         setGUIFromValues(lastDrive,startLoc,endLoc,driveDist,timeDrive);
 
 
-        //format millis to time in mm:ss
-
-
-        //set start locaiton as a city
 
 
 
-
+        //button listeners
         final Button done = (Button) findViewById(R.id.doneBtn);
         done.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,11 +62,15 @@ public class drive_ended extends AppCompatActivity {
             }
         });
     }
-
+/*
+ * parses and compute all the information form the prev drive
+ * displaying it the user in textviews
+ *
+ */
     private void setGUIFromValues(Drive drive,TextView startLoc,TextView endLoc,TextView driveDist,TextView timeDrive){
         //new geocoder for town names
         Geocoder mGeocoder = new Geocoder(this, Locale.getDefault());
-
+        //TODO TEST AND REMOVE BELOW
        // Date date = new Date(drive.totalTime);
 //        DateFormat formatter = new SimpleDateFormat("mm:ss");
 //        String formattedTime = formatter.format(date);
@@ -82,6 +82,9 @@ public class drive_ended extends AppCompatActivity {
         //drive.totalTime = drive.times;
 
         //start with start location
+        //WHEN TESTING IF YOU USE UNSPECIFIC CORDS THESE STRINGS WILL BE BROAD
+        //FETCHING FROM PHONE GPS GIVES PRECISE INFO
+        //A ADDRESS IS THE EXPECTED RETURN FROM GEOCODER ADDRESLINE(0)
         try {
             List<Address> geoCodeList = mGeocoder.getFromLocation(lastDrive.startLat,lastDrive.startLong,2);
             if(geoCodeList.size() != 0){
@@ -96,12 +99,12 @@ public class drive_ended extends AppCompatActivity {
             e.printStackTrace();
             Toast.makeText(this,"Unable to fetch start location for lookup",Toast.LENGTH_SHORT);
         }
-        //end location town and city
+        //end address info.
         try {
             List<Address> geoCodeList = mGeocoder.getFromLocation(lastDrive.finLat,lastDrive.finLong,2);
             if(geoCodeList.size() != 0){
-                endLocation = "Ended at: \n" + geoCodeList.get(0).getAddressLine(0);   //+ geoCodeList.get(0).getAddressLine(1)
-                endLoc.setText(endLocation);
+                endLocation = "Ended at: \n" + geoCodeList.get(0).getAddressLine(0);   //+ geoCodeList.get(0).getAddressLine(1) for more info
+                endLoc.setText(endLocation); //set text
             } else {
                 startLoc.setText("ERROR fetching location");
                 Toast.makeText(this,"Geo lookup failed",Toast.LENGTH_SHORT);
@@ -123,17 +126,16 @@ public class drive_ended extends AppCompatActivity {
 
         distanceTravled = start.distanceTo(end);
 
-        double tmpDistance;
 
-        tmpDistance = distanceTravled * 0.000621371192;
+        //convert from meters to miles
+        double tmpDistance = distanceTravled * 0.000621371192;
+        //format the double
+        DecimalFormat df = new DecimalFormat("#.##");  //EX: 8.99
 
-        DecimalFormat df = new DecimalFormat("#.##");
 
         driveDist.setText("Miles Travled:\n" + String.valueOf(df.format(tmpDistance)));
         drive.carUsed.miles +=  tmpDistance;
-        drive.distanceTrav =  (double) tmpDistance;
-
-
+        drive.distanceTrav = tmpDistance;
 
     }
 

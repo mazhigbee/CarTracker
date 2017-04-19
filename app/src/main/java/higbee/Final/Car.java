@@ -35,9 +35,10 @@ public class Car {
         //carList.add(this);
     }
 
-//    /*
-//    https://firebase.google.com/docs/database/android/read-and-write
-//     */
+    /*
+     *https://firebase.google.com/docs/database/android/read-and-write
+     * push cars to database
+     */
     protected static void writeNewCar(String userId,String model,String color, int miles){
         //reference the firebase instance
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -58,7 +59,7 @@ public class Car {
 
 
     }
-    //hash object for firebase
+    //hash car object fields
     private Map<String,Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("model", model);
@@ -69,6 +70,10 @@ public class Car {
         return result;
     }
     //http://stackoverflow.com/questions/38965731/how-to-get-all-childs-data-in-firebase-database
+    /*
+     * read the cars back from firebase
+     * iterate through the map and extract the values for each car
+     */
     public static void readCar(Map<String, Object> cars){
 
         carList.clear();
@@ -83,13 +88,19 @@ public class Car {
         }
 
     }
-public static void updateMiles(Car car){
-    mDatabase = FirebaseDatabase.getInstance().getReference();
-   Map<String, Object> carVals = car.toMap();
-    Map<String,Object> childUpdate = new HashMap<>();
-    childUpdate.put("/cars/"+ "/" + car.model +"/",carVals);
 
-    mDatabase.updateChildren(childUpdate);
+    /*
+    *THIS IS THE ONLY UPDATE A CAR EVER RECIEVES IN DATBASE
+    * updates the child of the specified car
+    * todo BECAREFUL TO NAME CARS SAME THING BECAUSE OF THIS
+    * should probably not be this way.....
+     */
+    public static void updateMiles(Car car){
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        Map<String, Object> carVals = car.toMap();
+        Map<String,Object> childUpdate = new HashMap<>();
+        childUpdate.put("/cars/"+ "/" + car.model +"/",carVals);
+        mDatabase.updateChildren(childUpdate);
 }
 
 }
