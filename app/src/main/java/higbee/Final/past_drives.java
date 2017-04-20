@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ public class past_drives extends AppCompatActivity {
         drivesList.setAdapter(listAdapter);
 
 
-        final Button cancelBtn = (Button) findViewById(R.id.btnCancel);
+        final ImageButton cancelBtn = (ImageButton) findViewById(R.id.btnDone);
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,7 +63,7 @@ public class past_drives extends AppCompatActivity {
      */
 
     private void setupList() {
-        //TODO
+
         //parse drive data for each drive
        //int numDrives = Drive.drivesLog.size();
         listDataHeader = new ArrayList<>();

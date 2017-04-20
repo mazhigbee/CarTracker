@@ -6,28 +6,28 @@
     android:layout_height="match_parent"
     tools:context="higbee.Final.past_drives">
 
-    <Button
-        android:id="@+id/btnCancel"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="13dp"
-        android:background="@color/colorPrimary"
-        android:text="@string/done"
-        android:textAlignment="center"
-        android:textColor="@android:color/background_light"
-        android:textSize="18sp"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/expandablePastDrives" />
-
     <ExpandableListView
         android:id="@+id/expandablePastDrives"
-        android:layout_width="332dp"
-        android:layout_height="415dp"
+        android:layout_width="339dp"
+        android:layout_height="384dp"
         android:layout_marginTop="16dp"
         app:layout_constraintHorizontal_bias="0.526"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnDone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/transparent"
+        android:contentDescription="@string/done"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/expandablePastDrives"
+        app:srcCompat="@mipmap/save" />
 </android.support.constraint.ConstraintLayout>

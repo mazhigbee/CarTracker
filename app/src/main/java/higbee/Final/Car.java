@@ -32,14 +32,14 @@ public class Car {
         this.color = carColor;
         this.miles = miles;
         this.model = model;
-        //carList.add(this);
+       // carList.add(this);
     }
 
     /*
      *https://firebase.google.com/docs/database/android/read-and-write
      * push cars to database
      */
-    protected static void writeNewCar(String userId,String model,String color, int miles){
+    protected static void writeNewCar(String model,String color, int miles){
         //reference the firebase instance
         mDatabase = FirebaseDatabase.getInstance().getReference();
         //key key for user
@@ -102,5 +102,12 @@ public class Car {
         childUpdate.put("/cars/"+ "/" + car.model +"/",carVals);
         mDatabase.updateChildren(childUpdate);
 }
+
+    public static void removeCar(String car,int index){
+        System.out.println("you are removing " + carList.get(index).model);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("cars").child(car).setValue(null);
+        carList.remove(index);
+    }
 
 }

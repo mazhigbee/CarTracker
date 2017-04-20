@@ -13,7 +13,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 
@@ -24,7 +24,9 @@ http://www.exceptionbound.com/programming-tut/android-tutorial/get-current-gps-l
  */
 
 
-public class current_drive extends AppCompatActivity {
+public class current_drive extends AppCompatActivity  {
+
+
     protected static String curModel;
     protected static int carIndex;
     private LocationManager locationManager;
@@ -96,7 +98,7 @@ public class current_drive extends AppCompatActivity {
 
 
 
-        final Button btnDoneDriving = (Button) findViewById(R.id.endDrive);
+        final ImageButton btnDoneDriving = (ImageButton) findViewById(R.id.endDrive);
         btnDoneDriving.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

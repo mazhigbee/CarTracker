@@ -7,7 +7,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,13 +49,13 @@ public class drive_ended extends AppCompatActivity {
 
 
         //button listeners
-        final Button done = (Button) findViewById(R.id.doneBtn);
+        final ImageButton done = (ImageButton) findViewById(R.id.btnDone);
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Drive.writeNewDrive(lastDrive);
-                //TODO UPDATE CAR MILES
+
                 Car.updateMiles(lastDrive.carUsed);
 
                 startActivity(new Intent(drive_ended.this,StartDrive.class));
@@ -70,13 +70,7 @@ public class drive_ended extends AppCompatActivity {
     private void setGUIFromValues(Drive drive,TextView startLoc,TextView endLoc,TextView driveDist,TextView timeDrive){
         //new geocoder for town names
         Geocoder mGeocoder = new Geocoder(this, Locale.getDefault());
-        //TODO TEST AND REMOVE BELOW
-       // Date date = new Date(drive.totalTime);
-//        DateFormat formatter = new SimpleDateFormat("mm:ss");
-//        String formattedTime = formatter.format(date);
-//        int hours = (int) ((drive.totalTime / (1000*60*60)) % 24);
-//        int mins = (int) ((drive.totalTime / (1000*60)) % 60);
-//        timeDrive.setText("Your Drive Took " + Integer.toString(hours) + " Hours and " + Integer.toString(mins) + "Minutes");
+
 
         timeDrive.setText(Drive.driveTimeAsString(drive.totalTime));
         //drive.totalTime = drive.times;

@@ -10,27 +10,16 @@
         android:id="@+id/mapDrive"
         android:layout_width="325dp"
         android:layout_height="276dp"
-        android:layout_marginEnd="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginStart="20dp"
         android:elevation="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.497"
-        app:layout_constraintHorizontal_bias="0.4" />
-
-    <Button
-        android:id="@+id/endDrive"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/end_drive"
-        app:layout_constraintHorizontal_bias="0.94"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_editor_absoluteY="427dp" />
+        app:layout_constraintVertical_bias="0.497" />
 
     <TextClock
         android:id="@+id/textClock"
@@ -43,5 +32,17 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/endDrive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="26dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/transparent"
+        android:contentDescription="@string/end_drive"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:srcCompat="@mipmap/end_drive" />
 
 </android.support.constraint.ConstraintLayout>

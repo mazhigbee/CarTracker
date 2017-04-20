@@ -15,4 +15,5 @@
     <string name="done">Done</string>
     <string name="refresh_gps">Enable GPS</string>
     <string name="drive_ended">Drive Ended</string>
+    <string name="remove_car">Remove Cars</string>
 </resources>
