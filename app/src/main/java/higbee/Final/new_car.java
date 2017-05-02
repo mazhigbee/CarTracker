@@ -62,7 +62,7 @@ public class new_car extends AppCompatActivity {
                     errors = true;
                     Toast.makeText(getApplicationContext(),"Please enter valid info",Toast.LENGTH_SHORT).show();
                 }
-
+                //Comment here maz todo
                 if(errors == false && color != null && model != null && miles != -1){
                     Car.writeNewCar(model,color,miles);
                     startActivity(new Intent(new_car.this,choose_car.class));

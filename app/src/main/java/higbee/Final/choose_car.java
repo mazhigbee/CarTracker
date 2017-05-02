@@ -132,6 +132,12 @@ public class choose_car extends AppCompatActivity {
                     current_drive.carIndex = position;
                     Intent i = new Intent(choose_car.this, current_drive.class);
                     startActivity(i);
+
+
+
+
+
+
                 }
 
             }
