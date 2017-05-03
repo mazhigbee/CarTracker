@@ -16,7 +16,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Locale;
 
-public class drive_ended extends AppCompatActivity {
+public class DriveEnded extends AppCompatActivity {
 
     private String endLocation;
     private String startLocation;
@@ -58,7 +58,7 @@ public class drive_ended extends AppCompatActivity {
 
                 Car.updateMiles(lastDrive.carUsed);
 
-                startActivity(new Intent(drive_ended.this,StartDrive.class));
+                startActivity(new Intent(DriveEnded.this,StartDrive.class));
             }
         });
     }

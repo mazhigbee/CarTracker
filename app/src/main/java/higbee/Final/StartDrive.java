@@ -30,7 +30,7 @@ public class StartDrive extends AppCompatActivity {
         start_button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-               Intent chooseCar = new Intent(StartDrive.this,choose_car.class);
+               Intent chooseCar = new Intent(StartDrive.this,ChooseCar.class);
                 startActivity(chooseCar);
             }
         });
@@ -40,7 +40,7 @@ public class StartDrive extends AppCompatActivity {
            @Override
             public void onClick(View v){
 
-               Intent choosePastDrives = new Intent(StartDrive.this,past_drives.class);
+               Intent choosePastDrives = new Intent(StartDrive.this,PastDrives.class);
                startActivity(choosePastDrives);
            }
         });

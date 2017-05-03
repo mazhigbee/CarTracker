@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="higbee.Final.drive_ended">
+    tools:context="higbee.Final.DriveEnded">
 
     <TextView
         android:id="@+id/totalTime"

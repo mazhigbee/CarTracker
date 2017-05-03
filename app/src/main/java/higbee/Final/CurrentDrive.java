@@ -25,7 +25,7 @@ http://www.exceptionbound.com/programming-tut/android-tutorial/get-current-gps-l
  */
 
 
-public class current_drive extends AppCompatActivity  {
+public class CurrentDrive extends AppCompatActivity  {
 
 
     protected static String curModel;
@@ -66,7 +66,7 @@ public class current_drive extends AppCompatActivity  {
                 //if the location has been sampled before first location should be true
                     //set the current lat/long to the updated location
                 //if firstLocCheck is false create a new drive with the current location
-                if(firstLocCheck == false){
+                if(!firstLocCheck){
                     drive = new Drive(location.getLatitude(),location.getLongitude(),Car.carList.get(carIndex),startTime);
                     firstLocCheck = true;
                 } else {
@@ -112,7 +112,7 @@ public class current_drive extends AppCompatActivity  {
                 drive.finLat = Drive.curLat;
                 System.out.println("You have ended your drive at" + drive.finLat + " | " + drive.finLong);
                 Toast.makeText(getApplicationContext(),"Ending drive",Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(current_drive.this, drive_ended.class));
+                startActivity(new Intent(CurrentDrive.this, DriveEnded.class));
 
 
             }

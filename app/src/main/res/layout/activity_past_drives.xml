@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="higbee.Final.past_drives">
+    tools:context="higbee.Final.PastDrives">
 
     <ExpandableListView
         android:id="@+id/expandablePastDrives"

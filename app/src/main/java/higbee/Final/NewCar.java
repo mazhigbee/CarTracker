@@ -16,7 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Map;
 
-public class new_car extends AppCompatActivity {
+public class NewCar extends AppCompatActivity {
     Car tmp;
     EditText ccMilage;
     EditText ccModel;
@@ -39,7 +39,7 @@ public class new_car extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(new_car.this,choose_car.class));
+                startActivity(new Intent(NewCar.this,ChooseCar.class));
             }
         });
 
@@ -65,7 +65,7 @@ public class new_car extends AppCompatActivity {
                 //Comment here maz todo
                 if(errors == false && color != null && model != null && miles != -1){
                     Car.writeNewCar(model,color,miles);
-                    startActivity(new Intent(new_car.this,choose_car.class));
+                    startActivity(new Intent(NewCar.this,ChooseCar.class));
                 }
 
 

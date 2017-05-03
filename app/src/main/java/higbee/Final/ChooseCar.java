@@ -27,7 +27,7 @@ import static higbee.Final.R.layout.activity_choose_car;
 //outside resources
 //http://stackoverflow.com/questions/9596663/how-to-make-items-clickable-in-list-view
 
-public class choose_car extends AppCompatActivity {
+public class ChooseCar extends AppCompatActivity {
 
     private ListView lv;
     private ArrayList<String> modelList = new ArrayList<>(); //array to set the view
@@ -62,7 +62,7 @@ public class choose_car extends AppCompatActivity {
         newCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(choose_car.this,new_car.class));
+                startActivity(new Intent(ChooseCar.this,NewCar.class));
 
             }
         });
@@ -98,7 +98,7 @@ public class choose_car extends AppCompatActivity {
 
                 //if you have checked the box to remove cars do so.
                 if(removeCars.isChecked()){
-                    new AlertDialog.Builder(choose_car.this)
+                    new AlertDialog.Builder(ChooseCar.this)
                             .setTitle("Removing Cars")
                             .setMessage("Would you like to remove " + modelList.get(position).toString())
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
@@ -128,9 +128,9 @@ public class choose_car extends AppCompatActivity {
 
                 } else {
                     //else choose car and start drive.
-                    current_drive.curModel = modelList.get(position).toString();
-                    current_drive.carIndex = position;
-                    Intent i = new Intent(choose_car.this, current_drive.class);
+                    CurrentDrive.curModel = modelList.get(position).toString();
+                    CurrentDrive.carIndex = position;
+                    Intent i = new Intent(ChooseCar.this, CurrentDrive.class);
                     startActivity(i);
 
 

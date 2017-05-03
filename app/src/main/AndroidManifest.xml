@@ -26,19 +26,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".choose_car"
+            android:name=".ChooseCar"
             android:label="@string/select_car" />
         <activity
-            android:name=".new_car"
+            android:name=".NewCar"
             android:label="@string/create_car" />
         <activity
-            android:name=".past_drives"
+            android:name=".PastDrives"
             android:label="@string/view_drives" />
         <activity
-            android:name=".current_drive"
+            android:name=".CurrentDrive"
             android:label="@string/current_drive" />
         <activity
-            android:name=".drive_ended"
+            android:name=".DriveEnded"
             android:label="@string/drive_ended" />
         <activity android:name=".ParkingLocation"></activity>
     </application>

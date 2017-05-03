@@ -17,7 +17,7 @@ import java.util.Locale;
 //https://developer.android.com/reference/android/widget/ExpandableListView.html
 
 
-public class past_drives extends AppCompatActivity {
+public class PastDrives extends AppCompatActivity {
     ExpandableListView drivesList;
     ExpandableListAdapter listAdapter;
     ArrayList<ArrayList> driveComp;
@@ -47,7 +47,7 @@ public class past_drives extends AppCompatActivity {
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(past_drives.this, StartDrive.class));
+                startActivity(new Intent(PastDrives.this, StartDrive.class));
             }
         });
     }
