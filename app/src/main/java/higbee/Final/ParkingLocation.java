@@ -10,6 +10,10 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+//support for implmenting a map view from
+//http://www.vogella.com/tutorials/AndroidGoogleMaps/article.html
+//https://developers.google.com/maps/documentation/android-api/start
+
 public class ParkingLocation extends FragmentActivity implements OnMapReadyCallback{
     private GoogleMap mMap;
 
@@ -17,7 +21,7 @@ public class ParkingLocation extends FragmentActivity implements OnMapReadyCallb
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parking_location);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        // fetch xml layout fragment and notify when map is ready
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.mapPark);
         mapFragment.getMapAsync(this);
@@ -32,9 +36,12 @@ public class ParkingLocation extends FragmentActivity implements OnMapReadyCallb
 
 
 
-        // Add a marker in Sydney and move the camera
+        // Add marker to last parking location
+        //move camera to focus on that spot
         LatLng parkingSpot = new LatLng(lastLat,lastLong);
         mMap.addMarker(new MarkerOptions().position(parkingSpot).title("Parking Location"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(parkingSpot));
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(10));  //1: World  5: Landmass/continent  10: City  15: Streets   20: Buildings
+
     }
 }

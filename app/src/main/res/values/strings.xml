@@ -17,4 +17,5 @@
     <string name="drive_ended">Drive Ended</string>
     <string name="remove_car">Remove Cars</string>
     <string name="api_key">AIzaSyBTJ1wFcbJIzIvt6oSF0p8hnf-ZY0vTp4w</string>
+    <string name="nav">Navigation Button</string>
 </resources>

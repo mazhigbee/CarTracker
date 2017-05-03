@@ -6,21 +6,6 @@
     android:layout_height="match_parent"
     tools:context="higbee.Final.current_drive">
 
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/mapDrive"
-        android:layout_width="325dp"
-        android:layout_height="276dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginStart="20dp"
-        android:elevation="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.497" />
-
     <TextClock
         android:id="@+id/textClock"
         android:layout_width="264dp"
@@ -35,14 +20,29 @@
 
     <ImageButton
         android:id="@+id/endDrive"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="26dp"
+        android:layout_width="204dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:background="@color/transparent"
         android:contentDescription="@string/end_drive"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.625"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:srcCompat="@mipmap/end_drive" />
+
+    <ImageButton
+        android:id="@+id/navBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="224dp"
+        android:background="@color/transparent"
+        android:contentDescription="@string/nav"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:srcCompat="@mipmap/nav" />
 
 </android.support.constraint.ConstraintLayout>

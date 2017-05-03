@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.google.firebase.database.DataSnapshot;
@@ -45,7 +44,7 @@ public class StartDrive extends AppCompatActivity {
                startActivity(choosePastDrives);
            }
         });
-        final Button parkingLocBtn = (Button) findViewById(R.id.parking);
+        final ImageButton parkingLocBtn = (ImageButton) findViewById(R.id.parkingBtn);
         parkingLocBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

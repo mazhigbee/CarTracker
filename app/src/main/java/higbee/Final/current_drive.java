@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -113,6 +114,36 @@ public class current_drive extends AppCompatActivity  {
                 Toast.makeText(getApplicationContext(),"Ending drive",Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(current_drive.this, drive_ended.class));
 
+
+            }
+        });
+        ImageButton mapViewer = (ImageButton) findViewById(R.id.navBtn);
+        mapViewer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                new AlertDialog.Builder(view.getContext())
+                        .setTitle("Open Maps?")
+                        .setMessage("Would you like to open you Map Application?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //yes
+                                Uri loc = Uri.parse("geo:"+ Drive.curLat + ","+Drive.curLong + "?z=14");
+                                Intent mapIntent = new Intent(Intent.ACTION_VIEW,loc);
+                                startActivity(mapIntent);
+                                Toast.makeText(getApplicationContext(),"Opening Map...",Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //no
+                                //do nothing
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
 
             }
         });
