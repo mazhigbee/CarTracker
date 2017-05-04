@@ -117,6 +117,16 @@ public class Drive {
         return result;
     }
 
+
+//    public Map<String,Object> sortMap(Map<String,Object> drives){
+//        Map<String,Object> tmp1 = new HashMap<String, Object>();
+//
+//
+//        for(Map.Entry<String,Object> entry : drives.entrySet()){
+//
+//        }
+//
+//    }
     /*
     *read the dive info from firebase back into the application
     * takes a data snap shot of the child "drives" and sorts through each
@@ -126,6 +136,7 @@ public class Drive {
     public static void readDrives(Map<String,Object> drives){
 
         drivesLog.clear();
+
 
         for(Map.Entry<String, Object> entry : drives.entrySet()){
             Map singleDrive = (Map) entry.getValue();

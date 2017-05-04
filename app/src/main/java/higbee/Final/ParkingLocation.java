@@ -1,7 +1,15 @@
 package higbee.Final;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -16,11 +24,19 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class ParkingLocation extends FragmentActivity implements OnMapReadyCallback{
     private GoogleMap mMap;
+    private double lastLat;
+    private double lastLong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parking_location);
+
+
+        Drive lastDrive = Drive.drivesLog.get(Drive.drivesLog.size() - 1);
+        lastLat = lastDrive.finLat;
+        lastLong = lastDrive.finLong;
+
         // fetch xml layout fragment and notify when map is ready
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.mapPark);
@@ -30,9 +46,7 @@ public class ParkingLocation extends FragmentActivity implements OnMapReadyCallb
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        Drive lastDrive = Drive.drivesLog.get(Drive.drivesLog.size() - 1);
-        double lastLat = lastDrive.finLat;
-        double lastLong = lastDrive.finLong;
+
 
 
 

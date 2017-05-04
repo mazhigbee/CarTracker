@@ -3,9 +3,9 @@
     <string name="start_button">Start Drive</string>
     <string name="new_car">New Car</string>
     <string name="select_car">Select Car</string>
-    <string name="car_model">Car Model</string>
-    <string name="car_color">Car Color</string>
-    <string name="car_mileage">Car Mileage</string>
+    <string name="car_model">Model</string>
+    <string name="car_color">Color</string>
+    <string name="car_mileage">Mileage</string>
     <string name="cancel_button">Cancel</string>
     <string name="create_car">Create Car</string>
     <string name="view_drives">View Past Drives</string>

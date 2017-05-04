@@ -16,6 +16,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Map;
 
+
+//for floating hint text i used this
+//https://blog.stylingandroid.com/textinputlayout/
+//http://stackoverflow.com/questions/26458436/android-edittext-view-floating-hint-in-material-design
+
 public class NewCar extends AppCompatActivity {
     Car tmp;
     EditText ccMilage;
@@ -62,7 +67,7 @@ public class NewCar extends AppCompatActivity {
                     errors = true;
                     Toast.makeText(getApplicationContext(),"Please enter valid info",Toast.LENGTH_SHORT).show();
                 }
-                //Comment here maz todo
+                // todo change this to better data valadation
                 if(errors == false && color != null && model != null && miles != -1){
                     Car.writeNewCar(model,color,miles);
                     startActivity(new Intent(NewCar.this,ChooseCar.class));
