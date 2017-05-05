@@ -243,10 +243,22 @@ public class Drive {
         return driveTime;
 
     }
-//todo implement this maybe?
-//    public static String estimatedDriveTime(){
-//
-//    }
+    /*
+     *this function finds the most recent drive by comparing the start times of each drive
+     * then returns the index in the drive list that holds that drive
+     *
+     */
+    public static int lastDriveTaken(){
+        long smallestTimeDif = -1;
+        int lastDriveIndex = -1;
 
+        for(int i = 0; i < drivesLog.size(); i++){
+           if(drivesLog.get(i).startTime > smallestTimeDif ){
+               smallestTimeDif = drivesLog.get(i).startTime;
+               lastDriveIndex = i;
+           }
+        }
+        return lastDriveIndex;
+    }
 
 }

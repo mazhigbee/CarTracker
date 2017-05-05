@@ -26,14 +26,15 @@ public class ParkingLocation extends FragmentActivity implements OnMapReadyCallb
     private GoogleMap mMap;
     private double lastLat;
     private double lastLong;
+    private int lastDriveIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parking_location);
 
-
-        Drive lastDrive = Drive.drivesLog.get(Drive.drivesLog.size() - 1);
+        lastDriveIndex = Drive.lastDriveTaken();
+        Drive lastDrive = Drive.drivesLog.get(lastDriveIndex);
         lastLat = lastDrive.finLat;
         lastLong = lastDrive.finLong;
 
@@ -46,6 +47,7 @@ public class ParkingLocation extends FragmentActivity implements OnMapReadyCallb
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
 
 
 
