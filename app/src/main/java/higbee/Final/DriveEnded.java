@@ -18,9 +18,6 @@ import java.util.Locale;
 
 public class DriveEnded extends AppCompatActivity {
 
-    private String endLocation;
-    private String startLocation;
-    private float distanceTravled;
     private Drive lastDrive;
 
 
@@ -68,68 +65,14 @@ public class DriveEnded extends AppCompatActivity {
  *
  */
     private void setGUIFromValues(Drive drive,TextView startLoc,TextView endLoc,TextView driveDist,TextView timeDrive){
-        //new geocoder for town names
-        Geocoder mGeocoder = new Geocoder(this, Locale.getDefault());
-
 
         timeDrive.setText(Drive.driveTimeAsString(drive.totalTime));
-        //drive.totalTime = drive.times;
+        startLoc.setText(Drive.startAddAsString(this,lastDrive.startLat,lastDrive.startLong));
+        endLoc.setText(Drive.endAddAsString(this,lastDrive.finLat,lastDrive.finLong));
 
-        //start with start location
-        //WHEN TESTING IF YOU USE UNSPECIFIC CORDS THESE STRINGS WILL BE BROAD
-        //FETCHING FROM PHONE GPS GIVES PRECISE INFO
-        //A ADDRESS IS THE EXPECTED RETURN FROM GEOCODER ADDRESLINE(0)
-        try {
-            List<Address> geoCodeList = mGeocoder.getFromLocation(lastDrive.startLat,lastDrive.startLong,2);
-            if(geoCodeList.size() != 0){
-                startLocation = "Drive started at:\n" + geoCodeList.get(0).getAddressLine(0) ;   //+ geoCodeList.get(0).getAddressLine(1)
-                startLoc.setText(startLocation);
+        driveDist.setText(Drive.distAsString(drive.startLat,drive.startLong,drive.finLat,drive.finLong));
 
-            } else {
-                startLoc.setText("ERROR fetching location");
-                Toast.makeText(this,"Geo lookup failed",Toast.LENGTH_SHORT);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(this,"Unable to fetch start location for lookup",Toast.LENGTH_SHORT);
-        }
-        //end address info.
-        try {
-            List<Address> geoCodeList = mGeocoder.getFromLocation(lastDrive.finLat,lastDrive.finLong,2);
-            if(geoCodeList.size() != 0){
-                endLocation = "Ended at: \n" + geoCodeList.get(0).getAddressLine(0);   //+ geoCodeList.get(0).getAddressLine(1) for more info
-                endLoc.setText(endLocation); //set text
-            } else {
-                startLoc.setText("ERROR fetching location");
-                Toast.makeText(this,"Geo lookup failed",Toast.LENGTH_SHORT);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(this,"Unable to fetch start location for lookup",Toast.LENGTH_SHORT);
-        }
-
-
-        //distance between
-        Location start = new Location("");
-        start.setLatitude(drive.startLat);
-        start.setLongitude(drive.startLong);
-
-        Location end = new Location("");
-        end.setLatitude(drive.finLat);
-        end.setLongitude(drive.finLong);
-
-        distanceTravled = start.distanceTo(end);
-
-
-        //convert from meters to miles
-        double tmpDistance = distanceTravled * 0.000621371192;
-        //format the double
-        DecimalFormat df = new DecimalFormat("#.##");  //EX: 8.99
-
-
-        driveDist.setText("Miles Travled:\n" + String.valueOf(df.format(tmpDistance)));
-        drive.carUsed.miles +=  tmpDistance;
-        drive.distanceTrav = tmpDistance;
+        Drive.updateCarMilage(drive,drive.startLat,drive.startLong,drive.finLat,drive.finLong);
 
     }
 

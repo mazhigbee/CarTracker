@@ -23,8 +23,6 @@ import java.util.Map;
 
 public class Drive {
 
-    //todo delete this \/
-    static long times;
 
     double startLat;
     double startLong;
@@ -118,15 +116,6 @@ public class Drive {
     }
 
 
-//    public Map<String,Object> sortMap(Map<String,Object> drives){
-//        Map<String,Object> tmp1 = new HashMap<String, Object>();
-//
-//
-//        for(Map.Entry<String,Object> entry : drives.entrySet()){
-//
-//        }
-//
-//    }
     /*
     *read the dive info from firebase back into the application
     * takes a data snap shot of the child "drives" and sorts through each
@@ -202,11 +191,11 @@ public class Drive {
 
             } else {
 
-                Toast.makeText(context,"Geo lookup failed",Toast.LENGTH_SHORT);
+                Toast.makeText(context,"Geo lookup failed",Toast.LENGTH_SHORT).show();
             }
         } catch (IOException e) {
             e.printStackTrace();
-            Toast.makeText(context,"Unable to fetch start location for lookup",Toast.LENGTH_SHORT);
+            Toast.makeText(context,"Unable to fetch start location for lookup",Toast.LENGTH_SHORT).show();
         }
         return startLocation;
     }
@@ -225,11 +214,11 @@ public class Drive {
 
             } else {
 
-                Toast.makeText(context,"Geo lookup failed",Toast.LENGTH_SHORT);
+                Toast.makeText(context,"Geo lookup failed",Toast.LENGTH_SHORT).show();
             }
         } catch (IOException e) {
             e.printStackTrace();
-            Toast.makeText(context,"Unable to fetch start location for lookup",Toast.LENGTH_SHORT);
+            Toast.makeText(context,"Unable to fetch end location for lookup",Toast.LENGTH_SHORT).show();
         }
         return endLocation;
     }
@@ -259,6 +248,30 @@ public class Drive {
            }
         }
         return lastDriveIndex;
+    }
+    /*
+     *updates the drive total distance and the car used distance
+     */
+    public static void updateCarMilage(Drive drive,double startLat,double startLong,double finLat,double finLong){
+        Location start = new Location("");
+        start.setLatitude(startLat);
+        start.setLongitude(startLong);
+
+        Location end = new Location("");
+        end.setLatitude(finLat);
+        end.setLongitude(finLong);
+
+        float distanceTravled = start.distanceTo(end);//distance is in meters...
+
+
+
+        double   tmpDistance = distanceTravled * 0.000621371192;//convert to miles
+
+
+
+        drive.carUsed.miles += tmpDistance;
+        drive.distanceTrav = tmpDistance;
+
     }
 
 }

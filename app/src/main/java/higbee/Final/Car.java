@@ -16,13 +16,10 @@ import java.util.Map;
  */
 
 public class Car {
-    public final static String USER_ID = "visFinal";
-    String model;
+    protected String model;
     long miles;
-    String color;
+    protected String color;
     private static DatabaseReference mDatabase;
-
-
 
 
     public static ArrayList<Car> carList = new ArrayList<Car>();
@@ -32,7 +29,7 @@ public class Car {
         this.color = carColor;
         this.miles = miles;
         this.model = model;
-       // carList.add(this);
+
     }
 
     /*
@@ -47,10 +44,8 @@ public class Car {
         Car car = new Car(model,miles,color);
         //hash data into firebase format
         Map<String, Object> carVals = car.toMap();
-
         Map<String, Object> childUpdate = new HashMap<>();
         childUpdate.put("/cars/" + "/"+car.model+"/",carVals);
-        //childUpdate.put("/user-cars/" + userId +"/" + key, carVals);
         //push to firebase
         Car.carList.add(car);
         mDatabase.updateChildren(childUpdate);
@@ -103,6 +98,11 @@ public class Car {
         mDatabase.updateChildren(childUpdate);
 }
 
+    /*
+     *this function takes car of the removal of cars
+     * from firebase it removes the model you selected
+     * and the car instance from its list
+     */
     public static void removeCar(String car,int index){
         System.out.println("you are removing " + carList.get(index).model);
         mDatabase = FirebaseDatabase.getInstance().getReference();

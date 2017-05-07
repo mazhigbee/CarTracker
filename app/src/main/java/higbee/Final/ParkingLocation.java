@@ -49,9 +49,6 @@ public class ParkingLocation extends FragmentActivity implements OnMapReadyCallb
         mMap = googleMap;
 
 
-
-
-
         // Add marker to last parking location
         //move camera to focus on that spot
         LatLng parkingSpot = new LatLng(lastLat,lastLong);
