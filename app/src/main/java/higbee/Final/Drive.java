@@ -23,7 +23,7 @@ import java.util.Map;
 
 public class Drive {
 
-
+    //there are no modifers here as they need to be package protected which is the default
     double startLat;
     double startLong;
     double finLat;
